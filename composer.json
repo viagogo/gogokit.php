@@ -1,0 +1,27 @@
+{
+    "name": "gogokit",
+    "description": "Viagogo API SDK for PHP",
+    "keywords": ["viagogo", "sdk"],
+    "type": "library",
+    "homepage": "https://github.com/viagogo/gogokit.php",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Viagogo",
+            "homepage": "https://github.com/viagogo/gogokit.php"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.4.*",
+        "mockery/mockery": "0.9.*",
+        "guzzlehttp/guzzle": "~5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Viagogo\\": "src/"
+        }
+    }
+}
