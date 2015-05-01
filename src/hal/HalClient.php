@@ -2,10 +2,11 @@
 
 namespace Viagogo\Hal;
 
-use Viagogo\Common\HttpClient;
-use Viagogo\Common\OAuthTokenStore;
-use Viagogo\Common\ViagogoConfiguration;
-use Viagogo\Common\ViagogoRequestParams;
+use GuzzleHttp\Client;
+use Viagogo\Core\HttpClient;
+use Viagogo\Core\OAuthTokenStore;
+use Viagogo\Core\ViagogoConfiguration;
+use Viagogo\Core\ViagogoRequestParams;
 use Viagogo\Resources\Root;
 
 /**
@@ -19,7 +20,7 @@ class HalClient {
 	function __construct(OAuthTokenStore $tokenStore) {
 		$this->tokenStore = $tokenStore;
 		$this->url = ViagogoConfiguration::$rootUrl;
-		$this->httpClient = new HttpClient();
+		$this->httpClient = new HttpClient(new Client());
 
 		if (ViagogoConfiguration::$currency) {
 			$this->httpClient->setRequestHeader('Accept-Currency', ViagogoConfiguration::$currency);

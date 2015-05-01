@@ -1,6 +1,6 @@
 <?php
 
-namespace Viagogo\Common;
+namespace Viagogo\Core;
 /**
  *
  */

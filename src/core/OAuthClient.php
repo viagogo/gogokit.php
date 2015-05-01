@@ -1,7 +1,8 @@
 <?php
 
-namespace Viagogo\Common;
+namespace Viagogo\Core;
 
+use GuzzleHttp\Client;
 use Viagogo\Exceptions\ViagogoException;
 
 /**
@@ -13,7 +14,7 @@ class OAuthClient {
 
 	function __construct($clientId, $clientSecret) {
 		$this->url = ViagogoConfiguration::$tokenUrl;
-		$this->httpClient = new HttpClient([$clientId, $clientSecret]);
+		$this->httpClient = new HttpClient(new Client(['defaults' => ['auth' => [$clientId, $clientSecret]]]));
 	}
 
 	public function getClientAccessToken($scopes = "") {

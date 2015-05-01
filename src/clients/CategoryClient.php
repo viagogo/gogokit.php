@@ -2,7 +2,7 @@
 
 namespace Viagogo\Clients;
 
-use Viagogo\Common\ViagogoRequestParams;
+use Viagogo\Core\ViagogoRequestParams;
 
 /**
  *

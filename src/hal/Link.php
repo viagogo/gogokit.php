@@ -2,7 +2,7 @@
 
 namespace Viagogo\Hal;
 
-use Viagogo\Common\ViagogoModel;
+use Viagogo\Core\ViagogoModel;
 
 /**
  *

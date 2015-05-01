@@ -3,7 +3,7 @@
 namespace Viagogo;
 
 use Viagogo\Clients as Clients;
-use Viagogo\Common as Common;
+use Viagogo\Core as Core;
 use Viagogo\Hal\HalClient;
 
 /**
@@ -24,8 +24,8 @@ class ViagogoClient {
 	private $metroAreaClient;
 
 	function __construct($clientId, $clientSecret) {
-		$this->oauthClient = new Common\OAuthClient($clientId, $clientSecret);
-		$this->tokenStore = new Common\OAuthTokenStore();
+		$this->oauthClient = new Core\OAuthClient($clientId, $clientSecret);
+		$this->tokenStore = new Core\OAuthTokenStore();
 		$this->halClient = new HalClient($this->tokenStore);
 		$this->categoryClient = new Clients\CategoryClient($this->halClient);
 		$this->eventClient = new Clients\EventClient($this->halClient);
@@ -38,7 +38,7 @@ class ViagogoClient {
 		$this->metroAreaClient = new Clients\MetroAreaClient($this->halClient);
 	}
 
-	public function setToken(Common\OAuthToken $token) {
+	public function setToken(Core\OAuthToken $token) {
 		$this->tokenStore->setToken($token);
 
 		return $this;

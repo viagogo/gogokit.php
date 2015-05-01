@@ -1,6 +1,6 @@
 <?php
 
-namespace Viagogo\Common;
+namespace Viagogo\Core;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -32,10 +32,8 @@ class HttpClient {
 	/**
 	 * @param \GuzzleHttp\Client|null The Guzzle client
 	 */
-	public function __construct($auth = array()) {
-		$this->guzzleClient = empty($auth)
-		? new Client()
-		: new Client(['defaults' => ['auth' => $auth]]);
+	public function __construct($guzzleClient) {
+		$this->guzzleClient = $guzzleClient;
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Viagogo\Common;
+namespace Viagogo\Core;
 
 /**
  * Generic Model class that all API domain classes extend
