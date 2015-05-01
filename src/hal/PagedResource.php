@@ -1,50 +1,40 @@
-<?php 
+<?php
 
 namespace Viagogo\Hal;
 
-use Viagogo\Common;
-
 /**
-* 
-*/
-class PagedResource extends Resource
-{
+ *
+ */
+class PagedResource extends Resource {
 	protected $total_items;
 	protected $page;
 	protected $page_size;
 	protected $items;
 	private $type;
 
-	public function __construct($data, $type)			
-	{
+	public function __construct($data, $type) {
 		parent::__construct($data);
 		$this->type = $type;
 	}
 
-	public function getTotalItems()
-	{
+	public function getTotalItems() {
 		return $this->total_items;
 	}
 
-	public function getPage()
-	{
+	public function getPage() {
 		return $this->page;
 	}
 
-	public function getPageSize()
-	{
+	public function getPageSize() {
 		return $this->pageSize;
 	}
 
-	public function getItems()
-	{
-		if (isset($this->_embedded->items))
-		{
+	public function getItems() {
+		if (isset($this->_embedded->items)) {
 			$result = array();
-			foreach ($this->_embedded->items as $item)
-			{
+			foreach ($this->_embedded->items as $item) {
 				$rc = new \ReflectionClass($this->type);
-				$result[] = $rc->newInstanceArgs(array($item)); 
+				$result[] = $rc->newInstanceArgs(array($item));
 			}
 
 			return $result;

@@ -1,15 +1,32 @@
-<?php 
+<?php
 
 namespace Viagogo\Clients;
 
-use Viagogo\Hal\HalClient;
-use Viagogo\Hal\PagedResource;
-use Viagogo\Resources\MetroArea;
 use Viagogo\Common\ViagogoRequestParams;
+use Viagogo\Hal\PagedResource;
 
 /**
-* 
-*/
-class MetroAreaClient extends Client
-{
+ *
+ */
+class MetroAreaClient extends Client {
+	public function getMetroArea($metroAreaId, ViagogoRequestParams $params = null) {
+		$root = $this->client->getRoot();
+		$link = $root->getMetroAreasLink()->getHref() . '/' . $metroAreaId;
+
+		return $this->client->getResource($link, $params, 'Viagogo\Resources\MetroArea');
+	}
+
+	public function getMetroAreas(ViagogoRequestParams $params = null) {
+		$root = $this->client->getRoot();
+		$link = $root->getCurrenciesLink()->getHref();
+
+		return new PagedResource($this->client->getResource($link, $params), 'Viagogo\Resources\MetroArea');
+	}
+
+	public function getAllMetroAreas(ViagogoRequestParams $params = null) {
+		$root = $this->client->getRoot();
+		$link = $root->getCurrenciesLink()->getHref();
+
+		return $this->client->getAllResources($link, $params, 'Viagogo\Resources\MetroArea');
+	}
 }

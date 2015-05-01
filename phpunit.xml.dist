@@ -1,0 +1,19 @@
+<phpunit
+        colors="true"
+        stderr="true"
+        convertErrorsToExceptions="true"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+        stopOnFailure="false"
+        bootstrap="tests/init.php">
+    <testsuites>
+        <testsuite name="Viagogo API SDK for PHP Test Suite">
+            <directory>./tests</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./src</directory>
+        </whitelist>
+    </filter>
+</phpunit>

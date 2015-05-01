@@ -5,38 +5,22 @@ namespace Viagogo\Hal;
 use Viagogo\Common\ViagogoModel;
 
 /**
- * Class Link
- * @package Gogokit
+ *
  */
-class Link extends ViagogoModel
-{
-	/**
-	 * 
-	 */
-    protected $href;
+class Link extends ViagogoModel {
+	protected $href;
+	protected $title;
+	protected $templated;
 
-    /**
-     * 
-     */
-    protected $title;
+	public function getHref() {
+		return $this->href;
+	}
 
-    /**
-     * 
-     */
-    protected $templated;
+	public function getTitle() {
+		return $this->title;
+	}
 
-    public function getHref()
-    {
-    	return $this->href;
-    }
-
-    public function getTitle()
-    {
-    	return $this->title;
-    }
-
-    public function getIsTemplated()
-    {
-    	return $this->isTemplated;
-    }
+	public function getIsTemplated() {
+		return $this->isTemplated;
+	}
 }
