@@ -48,7 +48,9 @@ class HalClient {
 
 		$this->httpClient->setRequestHeader('Authorization', 'Bearer ' . $this->tokenStore->getToken()->getAccessToken());
 
-		return $this->httpClient->send($url, "GET", $params->toArray(), null);
+		$result = $this->httpClient->send($url, "GET", $params->toArray(), null);
+
+		return $this->createResource($result, $type);
 	}
 
 	public function getAllResources($url, ViagogoRequestParams $params = null, $type) {
@@ -66,8 +68,7 @@ class HalClient {
 
 			if (isset($page->_embedded->items)) {
 				foreach ($page->_embedded->items as $item) {
-					$rc = new \ReflectionClass($type);
-					$result[] = $rc->newInstanceArgs(array($item));
+					$result[] = $this->createResource($item, $type);
 				}
 			} else {
 				break;
@@ -81,5 +82,35 @@ class HalClient {
 		}
 
 		return $result;
+	}
+
+	public function patch($url, array $requestBody = array(), $type = null) {
+		$this->httpClient->setRequestHeader('Authorization', 'Bearer ' . $this->tokenStore->getToken()->getAccessToken());
+		$result = $this->httpClient->send($this->url, "PATCH", array(), $requestBody);
+
+		return $this->createResource($result, $type);
+	}
+
+	public function post($url, array $requestBody = array(), $type = null) {
+		$this->httpClient->setRequestHeader('Authorization', 'Bearer ' . $this->tokenStore->getToken()->getAccessToken());
+		$result = $this->httpClient->send($this->url, "POST", array(), $requestBody);
+
+		return $this->createResource($result, $type);
+	}
+
+	public function put($url, array $requestBody = array(), $type = null) {
+		$this->httpClient->setRequestHeader('Authorization', 'Bearer ' . $this->tokenStore->getToken()->getAccessToken());
+		$result = $this->httpClient->send($this->url, "PUT", array(), $requestBody);
+
+		return $this->createResource($result, $type);
+	}
+
+	private function createResource($item, $type) {
+		if ($type === null) {
+			return $item;
+		}
+
+		$rc = new \ReflectionClass($type);
+		return $rc->newInstanceArgs(array($item));
 	}
 }

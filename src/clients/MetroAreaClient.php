@@ -18,14 +18,14 @@ class MetroAreaClient extends Client {
 
 	public function getMetroAreas(ViagogoRequestParams $params = null) {
 		$root = $this->client->getRoot();
-		$link = $root->getCurrenciesLink()->getHref();
+		$link = $root->getMetroAreasLink()->getHref();
 
 		return new PagedResource($this->client->getResource($link, $params), 'Viagogo\Resources\MetroArea');
 	}
 
 	public function getAllMetroAreas(ViagogoRequestParams $params = null) {
 		$root = $this->client->getRoot();
-		$link = $root->getCurrenciesLink()->getHref();
+		$link = $root->getMetroAreasLink()->getHref();
 
 		return $this->client->getAllResources($link, $params, 'Viagogo\Resources\MetroArea');
 	}

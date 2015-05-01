@@ -1,3 +1,6 @@
 # Composer
 vendor
 composer.lock
+
+# Tests
+test.php

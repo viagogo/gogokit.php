@@ -1,15 +1,15 @@
-<?php 
+<?php
 
 namespace Viagogo;
 
 use Viagogo\Clients as Clients;
 use Viagogo\Common as Common;
 use Viagogo\Hal\HalClient;
+
 /**
-* 
-*/
-class ViagogoClient
-{
+ *
+ */
+class ViagogoClient {
 	private $oauthClient;
 	private $tokenStore;
 	private $halClient;
@@ -21,9 +21,9 @@ class ViagogoClient
 	private $currencyClient;
 	private $countryClient;
 	private $languageClient;
+	private $metroAreaClient;
 
-	function __construct($clientId, $clientSecret)
-	{
+	function __construct($clientId, $clientSecret) {
 		$this->oauthClient = new Common\OAuthClient($clientId, $clientSecret);
 		$this->tokenStore = new Common\OAuthTokenStore();
 		$this->halClient = new HalClient($this->tokenStore);
@@ -35,62 +35,56 @@ class ViagogoClient
 		$this->currencyClient = new Clients\CurrencyClient($this->halClient);
 		$this->countryClient = new Clients\CountryClient($this->halClient);
 		$this->languageClient = new Clients\LanguageClient($this->halClient);
+		$this->metroAreaClient = new Clients\MetroAreaClient($this->halClient);
 	}
 
-	public function setToken(Common\OAuthToken $token)
-	{
+	public function setToken(Common\OAuthToken $token) {
 		$this->tokenStore->setToken($token);
-		
+
 		return $this;
 	}
 
-	public function getOAuthClient()
-	{
+	public function getOAuthClient() {
 		return $this->oauthClient;
 	}
 
-	public function getHalClient()
-	{
+	public function getHalClient() {
 		return $this->halClient;
 	}
-	
-	public function getCategoryClient()
-	{
+
+	public function getCategoryClient() {
 		return $this->categoryClient;
 	}
-	
-	public function getEventClient()
-	{
+
+	public function getEventClient() {
 		return $this->eventClient;
 	}
-	
-	public function getVenueClient()
-	{
+
+	public function getVenueClient() {
 		return $this->venueClient;
 	}
-	
-	public function getListingClient()
-	{
+
+	public function getListingClient() {
 		return $this->listingClient;
 	}
 
-	public function getSearchClient()
-	{
+	public function getSearchClient() {
 		return $this->searchClient;
 	}
 
-	public function getCountryClient()
-	{
+	public function getCountryClient() {
 		return $this->countryClient;
 	}
 
-	public function getCurrencyClient()
-	{
+	public function getCurrencyClient() {
 		return $this->currencyClient;
 	}
 
-	public function getLanguageClient()
-	{
+	public function getLanguageClient() {
 		return $this->languageClient;
+	}
+
+	public function getMetroAreaClient() {
+		return $this->metroAreaClient;
 	}
 }
