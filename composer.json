@@ -1,5 +1,5 @@
 {
-    "name": "gogokit",
+    "name": "viagogo/gogokit",
     "description": "Viagogo API SDK for PHP",
     "keywords": ["viagogo", "sdk"],
     "type": "library",
