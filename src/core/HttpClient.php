@@ -95,17 +95,13 @@ class HttpClient {
 		{
 			$response = $this->guzzleClient->send($request);
 		} catch (RequestException $e) {
-			ErrorHandler::handleStatusCode($e->getCode(), $e);
+			throw ErrorHandler::handleError($e);
 		}
 
 		$this->responseHttpStatusCode = $response->getStatusCode();
 		$this->responseHeaders = $response->getHeaders();
 
-		$body = json_decode($response->getBody());
-
-		ErrorHandler::validateResponseBody($body);
-
-		return $body;
+		return json_decode($response->getBody());
 	}
 
 }

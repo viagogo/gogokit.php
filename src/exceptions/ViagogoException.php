@@ -7,14 +7,17 @@ namespace Viagogo\Exceptions;
  * @package Viagogo
  */
 abstract class ViagogoException extends \Exception {
-	protected $errorResource;
-	public function __construct($errorResource, $code = 0, \Exception $previous = null) {
-		$this->errorResource = $errorResource;
+	public $errorMessage;
+	public $statusCode;
 
-		parent::__construct($errorResource, $code, $previous);
+	public function __construct($statusCode, $errorMessage, $code = 0, \Exception $previous = null) {
+		$this->errorMessage = $errorMessage;
+		$this->statusCode = $statusCode;
+
+		parent::__construct($errorMessage, $code, $previous);
 	}
 
 	public function __toString() {
-		return $this->errorResource;
+		return get_class($this) . ': [status code] ' . $this->statusCode . ' [message] ' . $this->errorMessage . " in " . $this->getFile() . "\nInner exception: \n" . parent::__toString();
 	}
 }

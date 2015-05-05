@@ -21,25 +21,45 @@ class ErrorHandler {
 		"invalid_delete" => 'Viagogo\Exceptions\InvalidDeleteException',
 		"internal_server_error" => 'Viagogo\Exceptions\InternalServerErrorException');
 
-	public static function validateResponseBody($body) {
-		$error = new Error($body);
-		if (isset($error->code) && array_key_exists($error->code, self::exceptionLookup)) {
-			$rc = new \ReflectionClass(self::exceptionLookup[$error->code]);
-			throw $rc->newInstanceArgs(array($error->message));
+	public static function handleError($clientException) {
+		$codeStatus = $clientException->getCode();
+
+		if ($codeStatus == 404) {
+			return new \Viagogo\Exceptions\ResourceNotFoundException($codeStatus, $clientException->getMessage(), 1, $clientException);
 		}
+
+		$response = $clientException->getResponse();
+
+		if ($response->json() != null) {
+			$body = $response->getBody();
+			return self::handleErrorBody($codeStatus, $body, $clientException);
+		} else if ($codeStatus == 401) {
+			return new \Viagogo\Exceptions\UnauthorizedException($codeStatus, self::ParseValueFromAuthenticatedHeader($response), 1, $clientException);
+		}
+
+		return $clientException;
 	}
 
-	public static function handleStatusCode($codeStatus, $ex) {
-		switch ((int) $codeStatus) {
-			case 403:
-				throw new \Viagogo\Exceptions\ForbiddenException($ex->getMessage(), 1, $ex);
-				break;
-			case 404:
-				throw new \Viagogo\Exceptions\ResourceNotFoundException($ex->getMessage(), 1, $ex);
-				break;
-			default:
-				throw new \Viagogo\Exceptions\RequestException($ex->getMessage(), 1, $ex);
-				break;
+	public static function handleErrorBody($codeStatus, $body, $clientException) {
+		$error = json_decode($body);
+		if (isset($error->code) && array_key_exists($error->code, self::exceptionLookup)) {
+			$rc = new \ReflectionClass(self::exceptionLookup[$error->code]);
+			return $rc->newInstanceArgs(array($codeStatus, $error->message, 1, $clientException));
+		} else if (isset($error->error)) {
+			return new \Viagogo\Exceptions\BadRequestException($codeStatus, $error->error_description, 1, $clientException);
 		}
+
+		return $clientException;
+	}
+
+	public static function ParseValueFromAuthenticatedHeader($response) {
+		$headers = $response->getHeaders();
+		if (array_key_exists("WWW-Authenticate", $headers)) {
+			if (preg_match('/,error_description="(?<value>.+)"/', $headers["WWW-Authenticate"][0], $error) > 0) {
+				return $error[1];
+			}
+		}
+
+		return null;
 	}
 }

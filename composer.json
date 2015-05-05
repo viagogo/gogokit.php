@@ -4,7 +4,7 @@
     "keywords": ["viagogo", "sdk"],
     "type": "library",
     "homepage": "https://github.com/viagogo/gogokit.php",
-    "license": "MIT",
+    "license": "Viagogo",
     "authors": [
         {
             "name": "Viagogo",

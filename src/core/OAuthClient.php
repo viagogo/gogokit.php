@@ -13,7 +13,7 @@ class OAuthClient {
 	private $httpClient;
 
 	function __construct($clientId, $clientSecret) {
-		$this->url = ViagogoConfiguration::$tokenUrl;
+		$this->url = \Viagogo\ViagogoConfiguration::$tokenUrl;
 		$this->httpClient = new HttpClient(new Client(['defaults' => ['auth' => [$clientId, $clientSecret]]]));
 	}
 

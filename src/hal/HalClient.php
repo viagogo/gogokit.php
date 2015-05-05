@@ -5,9 +5,9 @@ namespace Viagogo\Hal;
 use GuzzleHttp\Client;
 use Viagogo\Core\HttpClient;
 use Viagogo\Core\OAuthTokenStore;
-use Viagogo\Core\ViagogoConfiguration;
 use Viagogo\Core\ViagogoRequestParams;
 use Viagogo\Resources\Root;
+use Viagogo\ViagogoConfiguration;
 
 /**
  *
