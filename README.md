@@ -1,5 +1,7 @@
 # GogoKit - viagogo API Client Library for PHP
+[![Code Climate](https://codeclimate.com/github/viagogo/gogokit.php/badges/gpa.svg)][codeclimate]
 
+[codeclimate]: https://codeclimate.com/github/viagogo/gogokit.php
 
 GogoKit is a lightweight, viagogo API client library for PHP.
 
