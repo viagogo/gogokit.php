@@ -19,7 +19,7 @@ abstract class Client {
 		$root = $this->client->getRoot();
 		$link = $root->getLink($linkRel)->getHref() . '/' . $linkParams;
 
-		$this->client->getResource($link, $params, $type);
+		return $this->client->getResource($link, $params, $type);
 	}
 
 	function getResourcesFromRoot($linkRel, $linkParams = null, ViagogoRequestParams $params = null, $type) {
