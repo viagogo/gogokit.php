@@ -3,6 +3,7 @@
 namespace Viagogo\Resources;
 
 use Viagogo\Hal\Resource;
+use DateTime;
 
 /**
  *
