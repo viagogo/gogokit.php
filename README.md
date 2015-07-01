@@ -19,7 +19,7 @@ GogoKit is a lightweight, viagogo API client library for PHP. Our
 Install via [Composer][composer].
 
 ```
-$ composer require 'viagogo/gogokit'
+$ composer require viagogo/gogokit
 ```
 
 
@@ -60,7 +60,7 @@ request. Thanks!
 
 ## Need Help? Found a bug?
 
-[submitanissue]: https://github.com/viagogo/gogokit.rb/issues
+[submitanissue]: https://github.com/viagogo/gogokit.php/issues
 
 Just [submit a issue][submitanissue] if you need any help. And, of course, feel
 free to submit pull requests with bug fixes or changes.
