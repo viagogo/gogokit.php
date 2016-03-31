@@ -35,14 +35,14 @@ See our [developer site][apidocsgettingstarted] for more examples.
 $clientId = 'CLIENT_ID';
 $clientSecret = 'CLIENT_SECRET';
 
-$viagogo = new Viagogo\ViagogoClient($clientId, $clientSecret);
-$viagogo->setToken($viagogo->getOAuthClient()->getClientAccessToken());
+$viagogoClient = new Viagogo\ViagogoClient($clientId, $clientSecret);
+$viagogoClient->setToken($viagogoClient->getOAuthClient()->getClientAccessToken());
 
 // Get an event by id
-$event = $client->getEventClient()->getEvent(676615);
+$event = $viagogoClient->getEventClient()->getEvent(676615);
 
 // Get a list of results that match your search query
-$searchResults = $client->getSearchClient()->getSearch("FC Barcelona tickets");
+$searchResults = $viagogoClient->getSearchClient()->getSearch("FC Barcelona tickets");
 ```
 
 
