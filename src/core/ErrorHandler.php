@@ -42,8 +42,8 @@ class ErrorHandler {
 
 	public static function handleErrorBody($codeStatus, $body, $clientException) {
 		$error = json_decode($body);
-		if (isset($error->code) && array_key_exists($error->code, self::exceptionLookup)) {
-			$rc = new \ReflectionClass(self::exceptionLookup[$error->code]);
+		if (isset($error->code) && array_key_exists($error->code, self::$exceptionLookup)) {
+			$rc = new \ReflectionClass(self::$exceptionLookup[$error->code]);
 			return $rc->newInstanceArgs(array($codeStatus, $error->message, 1, $clientException));
 		} else if (isset($error->error)) {
 			return new \Viagogo\Exceptions\BadRequestException($codeStatus, $error->error_description, 1, $clientException);
