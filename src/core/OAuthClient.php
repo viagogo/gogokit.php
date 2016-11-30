@@ -3,7 +3,6 @@
 namespace Viagogo\Core;
 
 use GuzzleHttp\Client;
-use Viagogo\Exceptions\ViagogoException;
 
 /**
  *
@@ -26,32 +25,29 @@ class OAuthClient {
 		return $this->sendRequest($this->url, "POST", $params);
 	}
 
-	public function getPasswordAccessToken($login, $passowrd, $scopes) {
+	public function getPasswordAccessToken($login, $password, $scopes) {
 		$params = [
 			'grant_type' => 'password',
 			'username' => $login,
-			'password' => $passowrd,
+			'password' => $password,
 			'scope' => $scopes,
 		];
-
-		$token = $this->httpClient->send($this->url, "POST", null, $params);
-
 		return $this->sendRequest($this->url, "POST", $params);
 	}
 
-	public function getRefreshToken($refeshToken = "") {
+	public function getRefreshToken($refreshToken = "") {
 		$params = [
 			'grant_type' => 'refresh_token',
-			'refresh_token' => $refeshToken,
+			'refresh_token' => $refreshToken,
 		];
 
 		return $this->sendRequest($this->url, "POST", $params);
 	}
 
 	private function sendRequest($url, $method, $params) {
-		$token = $this->httpClient->send($this->url, "POST", null, $params);
+		$token = $this->httpClient->send($url, $method, null, $params);
 		if (isset($token->error)) {
-			throw new ViagogoException($token->error . "\n" . $token->error_description, 1);
+			throw new \Exception($token->error . "\n" . $token->error, 1);
 		}
 
 		return new OAuthToken($token);

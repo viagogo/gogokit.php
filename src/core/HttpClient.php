@@ -25,12 +25,12 @@ class HttpClient {
 	protected $responseHttpStatusCode = 0;
 
 	/**
-	 * @var \GuzzleHttp\Client The Guzzle client
+	 * @var Client The Guzzle client
 	 */
 	protected $guzzleClient;
 
 	/**
-	 * @param \GuzzleHttp\Client|null The Guzzle client
+	 * @param Client|null The Guzzle client
 	 */
 	public function __construct($guzzleClient) {
 		$this->guzzleClient = $guzzleClient;
@@ -71,9 +71,9 @@ class HttpClient {
 	 * @param string $method The request method
 	 * @param array  $bodyParameters The key value pairs to be sent in the body
 	 *
-	 * @return response from the server
+	 * @return object - response from the server
 	 *
-	 * @throws \Viagogo\ViagogoException
+	 * @throws \Viagogo\Exceptions\ViagogoException
 	 */
 	public function send($url, $method = 'GET', $queryParameters = array(), $bodyParameters = array()) {
 		$options = array();
