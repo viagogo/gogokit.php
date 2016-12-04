@@ -17,6 +17,8 @@ class Event extends Resource {
 	protected $notes_html;
 	protected $restrictions_html;
 	protected $min_ticket_price;
+	/** @var int */
+	protected $number_of_tickets;
 
 	public function getId() {
 		return $this->id;
@@ -60,5 +62,12 @@ class Event extends Resource {
 		}
 
 		return new Money($this->min_ticket_price);
+	}
+
+	/**
+	* @return int
+	*/
+	public function getNumberOfTickets() {
+		return $this->number_of_tickets;
 	}
 }
