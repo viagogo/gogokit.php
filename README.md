@@ -48,7 +48,7 @@ $searchResults = $viagogoClient->getSearchClient()->getSearch("FC Barcelona tick
 
 ## Supported Platforms
 
-* PHP 5.5 or higher
+* PHP 5.6 or higher
 
 
 ## How to contribute

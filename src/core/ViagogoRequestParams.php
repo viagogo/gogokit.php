@@ -24,6 +24,7 @@ class ViagogoRequestParams {
 	public $paymentmethodtype;
 	public $embed;
 	public $number_of_tickets;
+	public $only_my_listings;
 
 	public function toArray() {
 		return array_filter((array) $this);

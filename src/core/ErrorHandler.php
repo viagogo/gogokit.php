@@ -46,7 +46,7 @@ class ErrorHandler {
 			$rc = new \ReflectionClass(self::$exceptionLookup[$error->code]);
 			return $rc->newInstanceArgs(array($codeStatus, $error->message, 1, $clientException));
 		} else if (isset($error->error)) {
-			return new \Viagogo\Exceptions\BadRequestException($codeStatus, $error->error_description, 1, $clientException);
+			return new \Viagogo\Exceptions\BadRequestException($codeStatus, $error->error, 1, $clientException);
 		}
 
 		return $clientException;

@@ -13,7 +13,7 @@ class HttpClient {
 	 * @var array The headers to be sent with the request
 	 */
 	protected $requestHeaders = array();
-
+	
 	/**
 	 * @var array The headers received from the response
 	 */
@@ -28,7 +28,6 @@ class HttpClient {
 	 * @var Client The Guzzle client
 	 */
 	protected $guzzleClient;
-
 	/**
 	 * @param Client|null The Guzzle client
 	 */
