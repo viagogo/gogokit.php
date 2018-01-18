@@ -32,10 +32,13 @@ See our [developer site][apidocsgettingstarted] for more examples.
 ```php
 // All methods require authentication. To get your viagogo OAuth credentials,
 // See TODO: docs url
-$clientId = 'CLIENT_ID';
-$clientSecret = 'CLIENT_SECRET';
 
-$viagogoClient = new Viagogo\ViagogoClient($clientId, $clientSecret);
+$configuration = new Viagogo\Core\ViagogoConfiguration();
+
+$configuration->clientId = 'CLIENT_ID';
+$configuration->clientSecret = 'CLIENT_SECRET';
+
+$viagogoClient = new Viagogo\ViagogoClient($configuration);
 $viagogoClient->setToken($viagogoClient->getOAuthClient()->getClientAccessToken());
 
 // Get an event by id
