@@ -4,6 +4,7 @@ namespace Viagogo\Clients;
 
 use Viagogo\Hal\HalClient;
 use Viagogo\Hal\PagedResource;
+use Viagogo\Core\ViagogoRequestParams;
 
 /**
  *

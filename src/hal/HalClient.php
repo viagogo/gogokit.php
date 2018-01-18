@@ -7,7 +7,7 @@ use Viagogo\Core\HttpClient;
 use Viagogo\Core\OAuthTokenStore;
 use Viagogo\Core\ViagogoRequestParams;
 use Viagogo\Resources\Root;
-use Viagogo\ViagogoConfiguration;
+use Viagogo\Core\ViagogoConfiguration;
 
 /**
  *
@@ -16,22 +16,23 @@ class HalClient {
 	private $tokenStore;
 	private $url;
 	private $httpClient;
+	private static $rootUrl = 'https://api.viagogo.net/v2/';
 
-	function __construct(OAuthTokenStore $tokenStore) {
+	function __construct(ViagogoConfiguration $configuration, OAuthTokenStore $tokenStore) {
 		$this->tokenStore = $tokenStore;
-		$this->url = ViagogoConfiguration::$rootUrl;
+		$this->url = $configuration ? $configuration->rootUrl : HalClient::$rootUrl;
 		$this->httpClient = new HttpClient(new Client());
 
-		if (ViagogoConfiguration::$currency) {
-			$this->httpClient->setRequestHeader('Accept-Currency', ViagogoConfiguration::$currency);
+		if ($configuration && $configuration->currency) {
+			$this->httpClient->setRequestHeader('Accept-Currency', $configuration->currency);
 		}
 
-		if (ViagogoConfiguration::$language) {
-			$this->httpClient->setRequestHeader('Accept-Language', ViagogoConfiguration::$language);
+		if ($configuration && $configuration->language) {
+			$this->httpClient->setRequestHeader('Accept-Language', $configuration->language);
 		}
 
-		if (ViagogoConfiguration::$country) {
-			$this->httpClient->setRequestHeader('VGG-Country', ViagogoConfiguration::$country);
+		if ($configuration && $configuration->country) {
+			$this->httpClient->setRequestHeader('VGG-Country', $configuration->country);
 		}
 	}
 

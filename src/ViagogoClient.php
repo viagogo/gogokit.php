@@ -23,10 +23,10 @@ class ViagogoClient {
 	private $languageClient;
 	private $metroAreaClient;
 
-	function __construct($clientId, $clientSecret) {
-		$this->oauthClient = new Core\OAuthClient($clientId, $clientSecret);
+	function __construct(Core\ViagogoConfiguration $configuration) {
+		$this->oauthClient = new Core\OAuthClient($configuration);
 		$this->tokenStore = new Core\OAuthTokenStore();
-		$this->halClient = new HalClient($this->tokenStore);
+		$this->halClient = new HalClient($configuration, $this->tokenStore);
 		$this->categoryClient = new Clients\CategoryClient($this->halClient);
 		$this->eventClient = new Clients\EventClient($this->halClient);
 		$this->venueClient = new Clients\VenueClient($this->halClient);
