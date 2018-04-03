@@ -22,6 +22,8 @@ class ViagogoClient {
 	private $countryClient;
 	private $languageClient;
 	private $metroAreaClient;
+	private $sellerListingClient;
+	private $saleClient;
 
 	function __construct(Core\ViagogoConfiguration $configuration) {
 		$this->oauthClient = new Core\OAuthClient($configuration);
@@ -36,6 +38,8 @@ class ViagogoClient {
 		$this->countryClient = new Clients\CountryClient($this->halClient);
 		$this->languageClient = new Clients\LanguageClient($this->halClient);
 		$this->metroAreaClient = new Clients\MetroAreaClient($this->halClient);
+		$this->sellerListingClient = new Clients\SellerListingClient($this->halClient);
+		$this->saleClient = new Clients\SaleClient($this->halClient);
 	}
 
 	public function setToken(Core\OAuthToken $token) {

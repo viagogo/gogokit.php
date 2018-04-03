@@ -10,14 +10,14 @@ use Viagogo\Resources\Resources;
  */
 class CurrencyClient extends Client {
 	public function getCurrency($currencyCode, ViagogoRequestParams $params = null) {
-		return $this->getResourceFromRoot('viagogo:currencies', $currencyCode, $params, Resources::Currency);
+		return $this->getResource('currencies/' . $currencyCode, $params, Resources::Currency);
 	}
 
 	public function getCurrencies(ViagogoRequestParams $params = null) {
-		return $this->getResourcesFromRoot('viagogo:currencies', null, $params, Resources::Currency);
+		return $this->getResources('currencies', $params, Resources::Currency);
 	}
 
 	public function getAllCurrencies(ViagogoRequestParams $params = null) {
-		return $this->getAllResourcesFromRoot('viagogo:currencies', null, $params, Resources::Currency);
+		return $this->getAllResources('currencies', $params, Resources::Currency);
 	}
 }

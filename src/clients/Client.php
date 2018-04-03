@@ -16,23 +16,39 @@ abstract class Client {
 		$this->client = $halClient;
 	}
 
-	function getResourceFromRoot($linkRel, $linkParams, ViagogoRequestParams $params = null, $type) {
-		$root = $this->client->getRoot();
-		$link = $root->getLink($linkRel)->getHref() . '/' . $linkParams;
+	function post($urlRoute, array $requestBody, ViagogoRequestParams $params = null, $type) {
+		$link = $this->client->createUrl($urlRoute);
+
+		return $this->client->post($url, $requestBody, $type);
+	}
+
+	function patch($urlRoute, array $requestBody, ViagogoRequestParams $params = null, $type) {
+		$link = $this->client->createUrl($urlRoute);
+
+		return $this->client->patch($url, $requestBody, $type);
+	}
+
+	function delete($urlRoute, ViagogoRequestParams $params = null, $type) {
+		$link = $this->client->createUrl($urlRoute);
+
+		return $this->client->delete($url, $type);
+	}
+
+
+	function getResource($urlRoute, ViagogoRequestParams $params = null, $type) {
+		$link = $this->client->createUrl($urlRoute);
 
 		return $this->client->getResource($link, $params, $type);
 	}
 
-	function getResourcesFromRoot($linkRel, $linkParams = null, ViagogoRequestParams $params = null, $type) {
-		$root = $this->client->getRoot();
-		$link = $root->getLink($linkRel)->getHref() . '/' . $linkParams;
+	function getResources($urlRoute, ViagogoRequestParams $params = null, $type) {
+		$link = $this->client->createUrl($urlRoute);
 
 		return new PagedResource($this->client->getResource($link, $params), $type);
 	}
 
-	function getAllResourcesFromRoot($linkRel, $linkParams = null, ViagogoRequestParams $params = null, $type) {
-		$root = $this->client->getRoot();
-		$link = $root->getLink($linkRel)->getHref() . '/' . $linkParams;
+	function getAllResources($urlRoute, ViagogoRequestParams $params = null, $type) {
+		$link = $this->client->createUrl($urlRoute);
 
 		return $this->client->getAllResources($link, $params, $type);
 	}

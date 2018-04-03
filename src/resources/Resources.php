@@ -12,4 +12,6 @@ class Resources {
 	const MetroArea = 'Viagogo\Resources\MetroArea';
 	const Search = 'Viagogo\Resources\Search';
 	const Venue = 'Viagogo\Resources\Venue';
+	const SellerListing = 'Viagogo\Resources\SellerListing';
+	const Sale = 'Viagogo\Resources\Sale';
 }

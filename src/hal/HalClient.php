@@ -36,6 +36,10 @@ class HalClient {
 		}
 	}
 
+	public function createUrl($urlRoute) {
+		return $rootUrl . '/' . $urlRoute;
+	}
+
 	public function getRoot(ViagogoRequestParams $params = null) {
 		$params = $params ?: new ViagogoRequestParams();
 
