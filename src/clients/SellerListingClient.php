@@ -13,6 +13,10 @@ class SellerListingClient extends Client {
 		return $this->post('sellerlistings', (array) $listing, $params, Resources::SellerListing);
 	}
 
+	public function createSellerListingForEvent($eventId, $listing, ViagogoRequestParams $params = null) {
+		return $this->post('events/' . $eventId . '/sellerlistings', (array) $listing, $params, Resources::SellerListing);
+	}
+
 	public function updateSellerListing($listingId, $listing, ViagogoRequestParams $params = null) {
 		return $this->patch('sellerlistings/' . $listingId, (array) $listing, $params, Resources::SellerListing);
 	}

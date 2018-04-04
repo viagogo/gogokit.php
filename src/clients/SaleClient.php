@@ -17,7 +17,23 @@ class SaleClient extends Client {
 		return $this->getAllResources('sales', $params, Resources::Sale);
 	}
 
-	public function updateSale( $ViagogoRequestParams $params = null) {
-		return $this->getResources('sales/' . $eventId . '/listings', $params, Resources::Sale);
+	public function confirmSale($saleId, ViagogoRequestParams $params = null) {
+		$payload = array("confirmed" => true);
+		return $this->patch('sales/' . $saleId, $payload, $params, Resources::Sale);
+	}
+
+	public function rejectSale($saleI, ViagogoRequestParams $params = null) {
+		$payload = array("confirmed" => false);
+		return $this->patch('sales/' . $saleId, $payload, $params, Resources::Sale);
+	}
+
+	public function uploadEticket($saleId, ViagogoRequestParams $params = null) {
+		$payload = array("confirmed" => false);
+		return $this->patch('sales/' . $saleId, $payload, $params, Resources::Sale);
+	}
+
+	public function saveEticketIds($saleId, array $eticketIds, ViagogoRequestParams $params = null) {
+		$payload = array("eticket_ids" => $eticketIds);
+		return $this->patch('sales/' . $saleId, $payload, $params, Resources::Sale);
 	}
 }

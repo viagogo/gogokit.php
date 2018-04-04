@@ -14,6 +14,6 @@ class CategoryClient extends Client {
 	}
 
 	public function getAllGenres(ViagogoRequestParams $params = null) {
-		return $this->getAllResources('viagogo:genres', null, $params, Resources::Category);
+		return $this->getAllResources('categories/0/children', $params, Resources::Category);
 	}
 }
