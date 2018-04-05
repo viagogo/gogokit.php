@@ -111,6 +111,13 @@ class HalClient {
 		return $this->createResource($result, $type);
 	}
 
+	public function postFile($url, $fileContent, $fileName, $type = null) {
+		$this->httpClient->setRequestHeader('Authorization', 'Bearer ' . $this->tokenStore->getToken()->getAccessToken());
+		$result = $this->httpClient->sendFile($this->url, $fileContent, $fileName);
+
+		return $this->createResource($result, $type);
+	}
+
 	private function createResource($item, $type) {
 		if ($type === null) {
 			return $item;

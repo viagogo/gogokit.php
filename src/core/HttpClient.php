@@ -103,4 +103,32 @@ class HttpClient {
 		return json_decode($response->getBody());
 	}
 
+
+	public function sendFile($url, $fileContent, $fileName) {
+
+		$file = new GuzzleHttp\Post\PostFile($fileName, $fileContent);
+		$multipart = new GuzzleHttp\Post\MultipartBody([], [$file]);
+
+		$options = array();
+		$options['body'] = $multipart;
+
+		$request = $this->guzzleClient->createRequest('POST', $url, $options);
+		$request->setHeader("Content-Type", "multipart/form-data; boundary=". $multipart->getBoundary());
+		
+		foreach ($this->requestHeaders as $k => $v) {
+			$request->setHeader($k, $v);
+		}
+
+		try
+		{
+			$response = $this->guzzleClient->send($request);
+		} catch (RequestException $e) {
+			throw ErrorHandler::handleError($e);
+		}
+
+		$this->responseHttpStatusCode = $response->getStatusCode();
+		$this->responseHeaders = $response->getHeaders();
+
+		return json_decode($response->getBody());
+	}
 }

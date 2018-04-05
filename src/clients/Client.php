@@ -34,7 +34,6 @@ abstract class Client {
 		return $this->client->delete($url, $type);
 	}
 
-
 	function getResource($urlRoute, ViagogoRequestParams $params = null, $type) {
 		$link = $this->client->createUrl($urlRoute);
 
