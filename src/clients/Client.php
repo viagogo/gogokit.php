@@ -16,22 +16,28 @@ abstract class Client {
 		$this->client = $halClient;
 	}
 
-	function post($urlRoute, array $requestBody, ViagogoRequestParams $params = null, $type) {
+	function post($urlRoute, $requestBody, ViagogoRequestParams $params = null, $type) {
 		$link = $this->client->createUrl($urlRoute);
 
-		return $this->client->post($url, $requestBody, $type);
+		return $this->client->post($link, json_encode($requestBody), $type);
 	}
 
-	function patch($urlRoute, array $requestBody, ViagogoRequestParams $params = null, $type) {
+	function patch($urlRoute, $requestBody, ViagogoRequestParams $params = null, $type) {
 		$link = $this->client->createUrl($urlRoute);
 
-		return $this->client->patch($url, $requestBody, $type);
+		return $this->client->patch($link, json_encode($requestBody), $type);
 	}
 
 	function delete($urlRoute, ViagogoRequestParams $params = null, $type) {
 		$link = $this->client->createUrl($urlRoute);
 
-		return $this->client->delete($url, $type);
+		return $this->client->delete($link, $type);
+	}
+
+	function postFile($urlRoute, $fileContent, $fileName, ViagogoRequestParams $params = null, $type) {
+		$link = $this->client->createUrl($urlRoute);
+
+		return $this->client->postFile($link, $fileContent, $fileName, $type);
 	}
 
 	function getResource($urlRoute, ViagogoRequestParams $params = null, $type) {

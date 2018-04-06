@@ -19,7 +19,10 @@ class ErrorHandler {
 		"listing_conflict" => 'Viagogo\Exceptions\ListingConflictException',
 		"purchase_still_processing" => 'Viagogo\Exceptions\PurchaseStillProcessingException',
 		"invalid_delete" => 'Viagogo\Exceptions\InvalidDeleteException',
-		"internal_server_error" => 'Viagogo\Exceptions\InternalServerErrorException');
+		"internal_server_error" => 'Viagogo\Exceptions\InternalServerErrorException',
+		"invalid_sale_action" => 'Viagogo\Exceptions\InvalidSaleActionException',
+		"invalid_seller_listing_action" => 'Viagogo\Exceptions\InvalidSellerListingActionException',
+		"sale_eticket_already_uploaded" => 'Viagogo\Exceptions\SaleETicketAlreadyUploadedException');
 
 	public static function handleError($clientException) {
 		$codeStatus = $clientException->getCode();

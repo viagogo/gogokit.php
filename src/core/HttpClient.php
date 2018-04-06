@@ -74,7 +74,7 @@ class HttpClient {
 	 *
 	 * @throws \Viagogo\Exceptions\ViagogoException
 	 */
-	public function send($url, $method = 'GET', $queryParameters = array(), $bodyParameters = array()) {
+	public function send($url, $method = 'GET', $queryParameters = array(), $bodyParameters) {
 		$options = array();
 		if ($bodyParameters) {
 			$options['body'] = $bodyParameters;
@@ -85,6 +85,7 @@ class HttpClient {
 		}
 
 		$request = $this->guzzleClient->createRequest($method, $url, $options);
+		$request->setHeader('Content-Type', 'application/json');
 
 		foreach ($this->requestHeaders as $k => $v) {
 			$request->setHeader($k, $v);
@@ -106,8 +107,8 @@ class HttpClient {
 
 	public function sendFile($url, $fileContent, $fileName) {
 
-		$file = new GuzzleHttp\Post\PostFile($fileName, $fileContent);
-		$multipart = new GuzzleHttp\Post\MultipartBody([], [$file]);
+		$file = new \GuzzleHttp\Post\PostFile($fileName, $fileContent);
+		$multipart = new \GuzzleHttp\Post\MultipartBody([], [$file]);
 
 		$options = array();
 		$options['body'] = $multipart;

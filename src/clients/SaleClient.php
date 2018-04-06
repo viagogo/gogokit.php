@@ -22,14 +22,19 @@ class SaleClient extends Client {
 		return $this->patch('sales/' . $saleId, $payload, $params, Resources::Sale);
 	}
 
-	public function rejectSale($saleI, ViagogoRequestParams $params = null) {
+	public function rejectSale($saleId, ViagogoRequestParams $params = null) {
 		$payload = array("confirmed" => false);
 		return $this->patch('sales/' . $saleId, $payload, $params, Resources::Sale);
 	}
 
 	public function uploadEticket($saleId, $fileContent, $fileName, ViagogoRequestParams $params = null) {
-		$payload = array("confirmed" => false);
-		return $this->postFile('sales/' . $saleId, $fileContent, $fileName, Resources::ETicketUpload);
+		$eticketUpload = $this->postFile('sales/' . $saleId . '/eticketuploads', $fileContent, $fileName, $params, Resources::ETicketUpload);
+
+		return $eticketUpload->{'_embedded'}->{'items'};
+	}
+
+	public function getEticketUploads($saleId, ViagogoRequestParams $params = null) {
+		return $this->getAllResources('sales/' . $saleId . '/eticketuploads', $params, Resources::ETicketUpload);
 	}
 
 	public function saveEticketIds($saleId, array $eticketIds, ViagogoRequestParams $params = null) {

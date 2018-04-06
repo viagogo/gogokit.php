@@ -90,32 +90,37 @@ class HalClient {
 		return $result;
 	}
 
-	public function patch($url, array $requestBody = array(), $type = null) {
+	public function patch($url, $requestBody, $type = null) {
 		$this->httpClient->setRequestHeader('Authorization', 'Bearer ' . $this->tokenStore->getToken()->getAccessToken());
-		$result = $this->httpClient->send($this->url, "PATCH", array(), $requestBody);
+		$result = $this->httpClient->send($url, "PATCH", array(), $requestBody);
 
 		return $this->createResource($result, $type);
 	}
 
-	public function post($url, array $requestBody = array(), $type = null) {
+	public function post($url, $requestBody, $type = null) {
 		$this->httpClient->setRequestHeader('Authorization', 'Bearer ' . $this->tokenStore->getToken()->getAccessToken());
-		$result = $this->httpClient->send($this->url, "POST", array(), $requestBody);
+		$result = $this->httpClient->send($url, "POST", array(), $requestBody);
 
 		return $this->createResource($result, $type);
 	}
 
-	public function put($url, array $requestBody = array(), $type = null) {
+	public function put($url, $requestBody, $type = null) {
 		$this->httpClient->setRequestHeader('Authorization', 'Bearer ' . $this->tokenStore->getToken()->getAccessToken());
-		$result = $this->httpClient->send($this->url, "PUT", array(), $requestBody);
+		$result = $this->httpClient->send($url, "PUT", array(), $requestBody);
 
 		return $this->createResource($result, $type);
 	}
 
 	public function postFile($url, $fileContent, $fileName, $type = null) {
 		$this->httpClient->setRequestHeader('Authorization', 'Bearer ' . $this->tokenStore->getToken()->getAccessToken());
-		$result = $this->httpClient->sendFile($this->url, $fileContent, $fileName);
+		$result = $this->httpClient->sendFile($url, $fileContent, $fileName);
 
 		return $this->createResource($result, $type);
+	}
+
+	public function delete($url, $type = null) {
+		$this->httpClient->setRequestHeader('Authorization', 'Bearer ' . $this->tokenStore->getToken()->getAccessToken());
+		$this->httpClient->send($url, "DELETE", array(), null);
 	}
 
 	private function createResource($item, $type) {

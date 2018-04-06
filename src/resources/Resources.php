@@ -14,4 +14,5 @@ class Resources {
 	const Venue = 'Viagogo\Resources\Venue';
 	const SellerListing = 'Viagogo\Resources\SellerListing';
 	const Sale = 'Viagogo\Resources\Sale';
+	const ETicketUpload = 'Viagogo\Resources\ETicketUpload';
 }

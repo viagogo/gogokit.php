@@ -91,4 +91,12 @@ class ViagogoClient {
 	public function getMetroAreaClient() {
 		return $this->metroAreaClient;
 	}
+
+	public function getSellerListingClient() {
+		return $this->sellerListingClient;
+	}
+
+	public function getSaleClient() {
+		return $this->saleClient;
+	}
 }
