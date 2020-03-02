@@ -15,4 +15,5 @@ class Resources {
 	const SellerListing = 'Viagogo\Resources\SellerListing';
 	const Sale = 'Viagogo\Resources\Sale';
 	const ETicketUpload = 'Viagogo\Resources\ETicketUpload';
+	const Webhook = 'Viagogo\Resources\Webhook';
 }
