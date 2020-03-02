@@ -8,6 +8,8 @@ use Viagogo\Core\OAuthTokenStore;
 use Viagogo\Core\ViagogoRequestParams;
 use Viagogo\Resources\Root;
 use Viagogo\Core\ViagogoConfiguration;
+use Viagogo\Hal\ChangedResource;
+
 
 /**
  *
@@ -59,8 +61,18 @@ class HalClient {
 		return $this->createResource($result, $type);
 	}
 
-	public function getAllResources($url, ViagogoRequestParams $params = null, $type) {
+	public function getBytes($url, ViagogoRequestParams $params = null, $type = null) {
 		$params = $params ?: new ViagogoRequestParams();
+
+		$this->httpClient->setRequestHeader('Authorization', 'Bearer ' . $this->tokenStore->getToken()->getAccessToken());
+
+		$result = $this->httpClient->getBytes($url, $params->toArray(), null);
+
+		return $result;
+	}
+
+	public function getAllResources($url, ViagogoRequestParams $params = null, $type) {
+		$params = $params ?: new ViagogoRequestParams();		
 		$params->page = 1;
 		$params->page_size = 1000;
 
@@ -76,7 +88,8 @@ class HalClient {
 				foreach ($page->_embedded->items as $item) {
 					$result[] = $this->createResource($item, $type);
 				}
-			} else {
+			} 
+			else {
 				break;
 			}
 
@@ -90,6 +103,49 @@ class HalClient {
 		return $result;
 	}
 
+	public function getChangedResources($nextLink, ViagogoRequestParams $params = null, $type) {
+		$params = $params ?: new ViagogoRequestParams();
+		$params->page = 1;
+		$params->page_size = 10000;
+
+		$this->httpClient->setRequestHeader('Authorization', 'Bearer ' . $this->tokenStore->getToken()->getAccessToken());
+
+		$items = array();
+		$deleted_items = array();
+		$hasNextPage = true;
+
+		while ($hasNextPage) {
+			$page = $this->httpClient->send($nextLink, "GET", $params->toArray(), null);
+			$has_data = false;
+			if (isset($page->_embedded->items)) {
+				foreach ($page->_embedded->items as $item) {
+					$has_data = true;
+					$items[] = $this->createResource($item, $type);
+				}
+			} 
+			
+			if (isset($page->_embedded->deleted_items)) {
+				$has_data = true;
+				foreach ($page->_embedded->deleted_items as $item) {
+					$deleted_items[] = $this->createResource($item, $type);
+				}
+			} 
+			
+			if ($has_data == false)
+			{
+				break;	
+			}
+
+			if (!isset($page->_links->next)) {
+				$hasNextPage = false;
+			} else {
+				$nextLink = $page->_links->next->href;
+			}
+		}
+
+		return new ChangedResource($items, array_unique($deleted_items), $nextLink, $type);
+	}
+	
 	public function patch($url, $requestBody, $type = null) {
 		$this->httpClient->setRequestHeader('Authorization', 'Bearer ' . $this->tokenStore->getToken()->getAccessToken());
 		$result = $this->httpClient->send($url, "PATCH", array(), $requestBody);
