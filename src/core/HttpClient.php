@@ -104,6 +104,38 @@ class HttpClient {
 		return json_decode($response->getBody());
 	}
 
+	public function getBytes($url, $queryParameters = array(), $bodyParameters) {
+		$options = array();
+		if ($bodyParameters) {
+			$options['body'] = $bodyParameters;
+		}
+
+		if ($queryParameters) {
+			$options['query'] = $queryParameters;
+		}
+
+		$request = $this->guzzleClient->createRequest("get", $url, $options);
+		$request->setHeader('Content-Type', 'application/multipart/form-data');
+		//$request->setHeader('Accept', 'multipart/form-data');
+		foreach ($this->requestHeaders as $k => $v) {
+			$request->setHeader($k, $v);
+		}
+
+		
+		try
+		{
+			$response = $this->guzzleClient->send($request);
+		} catch (RequestException $e) {
+			echo ($e);
+			throw ErrorHandler::handleError($e);
+		}
+
+		$this->responseHttpStatusCode = $response->getStatusCode();
+		$this->responseHeaders = $response->getHeaders();
+
+		return $response->getBody()->getContents();
+	}
+
 
 	public function sendFile($url, $fileContent, $fileName) {
 

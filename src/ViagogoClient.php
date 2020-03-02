@@ -24,6 +24,8 @@ class ViagogoClient {
 	private $metroAreaClient;
 	private $sellerListingClient;
 	private $saleClient;
+	private $shipmentClient;
+	private $webhookClient;
 
 	function __construct(Core\ViagogoConfiguration $configuration) {
 		$this->oauthClient = new Core\OAuthClient($configuration);
@@ -40,6 +42,9 @@ class ViagogoClient {
 		$this->metroAreaClient = new Clients\MetroAreaClient($this->halClient);
 		$this->sellerListingClient = new Clients\SellerListingClient($this->halClient);
 		$this->saleClient = new Clients\SaleClient($this->halClient);
+		$this->shipmentClient = new Clients\ShipmentClient($this->halClient);
+		$this->webhookClient = new Clients\WebhookClient($this->halClient);
+
 	}
 
 	public function setToken(Core\OAuthToken $token) {
@@ -98,5 +103,13 @@ class ViagogoClient {
 
 	public function getSaleClient() {
 		return $this->saleClient;
+	}
+
+	public function getShipmentClient() {
+		return $this->shipmentClient;
+	}
+
+		public function getWebhookClient() {
+		return $this->webhookClient;
 	}
 }
