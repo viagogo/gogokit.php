@@ -24,7 +24,6 @@ abstract class Client {
 
 	function patch($urlRoute, $requestBody, ViagogoRequestParams $params = null, $type) {
 		$link = $this->client->createUrl($urlRoute);
-
 		return $this->client->patch($link, json_encode($requestBody), $type);
 	}
 
