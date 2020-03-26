@@ -16,8 +16,4 @@ class ShipmentClient extends Client {
 	public function downloadShipmentLabel($labelUrl, ViagogoRequestParams $params = null) {
 		return $this->getBytes($labelUrl, $params, Resources::Sale);
 	}
-
-
-
-
 }

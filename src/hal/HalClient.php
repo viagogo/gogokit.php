@@ -119,6 +119,7 @@ class HalClient {
 			$has_data = false;
 			if (isset($page->_embedded->items)) {
 				foreach ($page->_embedded->items as $item) {
+
 					$has_data = true;
 					$items[] = $this->createResource($item, $type);
 				}
@@ -127,7 +128,8 @@ class HalClient {
 			if (isset($page->_embedded->deleted_items)) {
 				$has_data = true;
 				foreach ($page->_embedded->deleted_items as $item) {
-					$deleted_items[] = $this->createResource($item, $type);
+					$deleted_item =$this->createResource($item, $type);
+					$deleted_items[$deleted_item->id] = $deleted_item;
 				}
 			} 
 			
@@ -143,7 +145,7 @@ class HalClient {
 			}
 		}
 
-		return new ChangedResource($items, array_unique($deleted_items), $nextLink, $type);
+		return new ChangedResource($items, $deleted_items , $nextLink, $type);
 	}
 	
 	public function patch($url, $requestBody, $type = null) {

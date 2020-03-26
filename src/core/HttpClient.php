@@ -86,7 +86,7 @@ class HttpClient {
 
 		$request = $this->guzzleClient->createRequest($method, $url, $options);
 		$request->setHeader('Content-Type', 'application/json');
-
+	
 		foreach ($this->requestHeaders as $k => $v) {
 			$request->setHeader($k, $v);
 		}
@@ -116,11 +116,10 @@ class HttpClient {
 
 		$request = $this->guzzleClient->createRequest("get", $url, $options);
 		$request->setHeader('Content-Type', 'application/multipart/form-data');
-		//$request->setHeader('Accept', 'multipart/form-data');
+
 		foreach ($this->requestHeaders as $k => $v) {
 			$request->setHeader($k, $v);
 		}
-
 		
 		try
 		{
